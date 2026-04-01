@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Order - Urban Bites</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+select, input {
+  flex: 1;
+  padding: 12px;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 8px;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  border: none;
+  background: linear-gradient(45deg,#ff4d6d,#ff914d);
+  color: white;
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+.remove {
+  background: red;
+}
+
+.bill {
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: left;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🍔 Place Your Order</h1>
+
+<input id="name" placeholder="Your Name"><br>
+
+<div id="items"></div>
+
+<button onclick="addItem()">➕ Add Item</button>
+<button onclick="generateBill()">Generate Bill</button>
+
+<div id="bill"></div>
+
+<button onclick="sendWhatsApp()">📲 Send Order</button>
+
+</div>
+
+<script>
+
+// MENU (your database)
+let menu = {
+  "Burger": 120,
+  "Pizza": 200,
+  "Fries": 80
+};
+
+// ADD ITEM ROW
+function addItem(){
+  let container = document.getElementById("items");
+
+  let row = document.createElement("div");
+  row.className = "row";
+
+  let select = document.createElement("select");
+
+  for(let item in menu){
+    let option = document.createElement("option");
+    option.value = item;
+    option.text = item + " - ₹" + menu[item];
+    select.appendChild(option);
+  }
+
+  let qty = document.createElement("input");
+  qty.placeholder = "Quantity";
+
+  let removeBtn = document.createElement("button");
+  removeBtn.innerText = "❌";
+  removeBtn.className = "remove";
+  removeBtn.onclick = function(){
+    row.remove();
+  };
+
+  row.appendChild(select);
+  row.appendChild(qty);
+  row.appendChild(removeBtn);
+
+  container.appendChild(row);
+}
+
+// GENERATE BILL
+function generateBill(){
+  let rows = document.querySelectorAll(".row");
+  let total = 0;
+
+  let output = "<div class='bill'><h2>🧾 Your Order</h2>";
+
+  rows.forEach(row => {
+    let item = row.querySelector("select").value;
+    let qty = parseInt(row.querySelector("input").value);
+
+    if(item && qty){
+      let cost = menu[item] * qty;
+      total += cost;
+
+      output += "<p>" + item + " × " + qty + " = ₹" + cost + "</p>";
+    }
+  });
+
+  output += "<hr><h3>Total: ₹" + total + "</h3></div>";
+
+  document.getElementById("bill").innerHTML = output;
+}
+
+// SEND TO WHATSAPP
+function sendWhatsApp(){
+  let rows = document.querySelectorAll(".row");
+  let message = "Order:%0A";
+
+  rows.forEach(row => {
+    let item = row.querySelector("select").value;
+    let qty = row.querySelector("input").value;
+
+    if(item && qty){
+      message += item + " x " + qty + "%0A";
+    }
+  });
+
+  window.open("https://wa.me/919912414450?text=" + message, "_blank");
+}
+
+// LOAD FIRST ROW AUTOMATICALLY
+window.onload = function(){
+  addItem();
+};
+
+</script>
+
+</body>
+</html>

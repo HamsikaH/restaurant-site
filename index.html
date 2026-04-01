@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -36,23 +36,22 @@ body {
 
 /* MENU */
 .menu {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 20px;
 }
 .item {
   background: #111;
-  margin: 15px;
-  padding: 15px;
-  width: 260px;
   border-radius: 15px;
-  transition: 0.3s;
+  padding: 15px;
+  text-align: center;
 }
 .item img {
   width: 100%;
-  border-radius: 10px;
+  height: 180px;
   object-fit: cover;
-height: 180px;
+  border-radius: 10px;
 }
 .item:hover {
   transform: scale(1.05);
@@ -98,6 +97,9 @@ button {
       <h3>Burger</h3>
       <p>Juicy grilled burger</p>
     </div>
+    <div class="section fade">
+    <h2>Customer Reviews ⭐</h2>
+    <div id="reviews"></div>
 
     <div class="item">
       <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Supreme_pizza.jpg">
@@ -110,19 +112,290 @@ button {
       <h3>Fries</h3>
       <p>Crispy & hot</p>
     </div>
+     
+      <input id="reviewInput" placeholder="Write your review..." style="padding:10px;width:60%">
+    <button onclick="addReview()">Submit</button>
+    </div>
 
   </div>
 
   <button onclick="order()">Order on WhatsApp</button>
 </div>
 
-<!-- WhatsApp Floating -->
-<a class="whatsapp" href="https://wa.me/919912414450" target="_blank">💬</a>
+<!--WhatsApp Floating -->
+<!-- <a class="whatsapp" href="https://wa.me/919912414450" target="_blank">💬</a>
 
-<script>
+
+<footer style="text-align:center;padding:20px;background:#111">
+  <p>© 2026 Urban Bites</p>
+</footer> -->
+
+<!-- <script>
 function order() {
   window.open("https://wa.me/919912414450?text=Hi%20I%20want%20to%20order","_blank");
 }
+</script> -->
+<!-- <script>
+window.onload = function(){
+
+  let chatInput = document.getElementById("chatInput");
+
+  chatInput.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+      let msg = this.value.toLowerCase();
+      let reply = "Try our burgers! 🍔";
+
+      if(msg.includes("menu")) reply = "We have burgers, pizza, fries 🍕";
+      if(msg.includes("time")) reply = "We are open 10AM–11PM ⏰";
+      if(msg.includes("location")) reply = "We are in Amaravati 📍";
+
+      document.getElementById("chatbox").innerHTML += 
+      `<p>You: ${msg}</p><p>Bot: ${reply}</p>`;
+
+      this.value="";
+    }
+  });
+
+};
+</script>
+
+<div id="chatbot" style="position:fixed;bottom:80px;right:20px;background:#111;padding:15px;border-radius:10px;width:250px;display:none">
+  <div id="chatbox"></div>
+  <input id="chatInput" placeholder="Ask something..." style="width:100%">
+</div>
+
+<button onclick="toggleChat()" style="position:fixed;bottom:20px;left:20px">💬 Chat</button>
+
+</body>
+</html>  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Urban Bites</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #000;
+  color: white;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1550547660-d9450f859349') center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hero h1 {
+  font-size: 60px;
+  font-family: 'Playfair Display', serif;
+}
+.hero p {
+  color: #ccc;
+}
+
+/* SECTION */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* MENU */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.card {
+  background: #111;
+  padding: 15px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ff4d6d;
+}
+
+/* REVIEWS */
+.reviews {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.review {
+  background: #111;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* GALLERY */
+.gallery {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+.gallery img {
+  width: 250px;
+  border-radius: 10px;
+}
+
+/* BUTTON */
+button {
+  padding: 12px 25px;
+  background: #ff4d6d;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* WHATSAPP */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  padding: 15px;
+  border-radius: 50%;
+}
+
+/* CHATBOT */
+#chatbot {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: #111;
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Urban Bites</h1>
+  <p>Where taste meets perfection 🍔</p>
+</div>
+
+<!-- MENU -->
+<div class="section">
+  <h2>Our Menu</h2>
+  <div class="menu">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500">
+      <h3>Burger</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500">
+      <h3>Pizza</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500">
+      <h3>Fries</h3>
+    </div>
+
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section">
+  <h2>Customer Reviews ⭐</h2>
+  <div class="reviews">
+    <div class="review">🔥 Best burgers in town!</div>
+    <div class="review">Loved the vibe 😍</div>
+    <div class="review">Amazing service!</div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="section">
+  <h2>Happy Customers 😊</h2>
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1">
+    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9">
+    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c">
+  </div>
+</div>
+
+<!-- ORDER BUTTON -->
+<div class="section">
+  <button onclick="window.location.href='order.html'">Order Now 🍔</button>
+</div>
+
+<!-- CONTACT -->
+<div class="section">
+  <h2>Contact</h2>
+  <p>📍 Amaravati</p>
+  <p>📞 +91XXXXXXXXXX</p>
+  <p>
+    Order via:
+    <a href="#" style="color:#ff4d6d">Zomato</a> |
+    <a href="#" style="color:#ff4d6d">Swiggy</a>
+  </p>
+</div>
+
+<!-- CHATBOT -->
+<div id="chatbot">
+  <div id="chatbox"></div>
+  <input id="chatInput" placeholder="Ask..." style="width:100%">
+</div>
+
+<button onclick="toggleChat()" style="position:fixed;bottom:20px;left:20px">💬</button>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919876543210" class="whatsapp">💬</a>
+
+<script>
+function toggleChat(){
+  let chat = document.getElementById("chatbot");
+  chat.style.display = (chat.style.display === "none" || chat.style.display === "") ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  let input = document.getElementById("chatInput");
+
+  input.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+
+      let msg = this.value.toLowerCase();
+      let reply = "Try our burgers! 🍔";
+
+      if(msg.includes("menu")) reply = "We have burgers, pizza, fries 🍕";
+      if(msg.includes("time")) reply = "We are open 10AM–11PM ⏰";
+      if(msg.includes("location")) reply = "We are in Amaravati 📍";
+
+      document.getElementById("chatbox").innerHTML += 
+      "<p>You: " + msg + "</p><p>Bot: " + reply + "</p>";
+
+      this.value = "";
+    }
+  });
+
+});
 </script>
 
 </body>
