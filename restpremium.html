@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Urban Bites Premium</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.6),black),
+  url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 70px;
+  font-family: 'Playfair Display', serif;
+  background: linear-gradient(45deg,#ff4d6d,#ff914d);
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 3px;
+}
+
+.hero p {
+  color: #aaa;
+}
+
+/* SECTION */
+.section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* GLASS CARD */
+.card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  transition: 0.4s;
+}
+
+/* MENU */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 40px rgba(255,77,109,0.5);
+}
+
+/* REVIEWS */
+.reviews {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* GALLERY */
+.gallery {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.gallery img {
+  width: 250px;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* BUTTON */
+button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg,#ff4d6d,#ff914d);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+/* WHATSAPP */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  padding: 15px;
+  border-radius: 50%;
+}
+
+/* SCROLL ANIMATION */
+.fade {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: 1s;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.story-card {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.story-card img {
+  width: 200px;
+  border-radius: 15px;
+}
+
+.story-card h3 {
+  margin: 0;
+}
+
+.story-card p {
+  color: #aaa;
+}
+.review-card {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 250px;
+  text-align: left;
+}
+
+.review-card p {
+  font-style: italic;
+  color: #ddd;
+}
+
+.review-card h4 {
+  margin-top: 10px;
+  color: #ff914d;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Urban Bites</h1>
+  <p>Experience the taste of luxury 🍔</p>
+</div>
+
+<!-- MENU -->
+<div class="section fade">
+  <h2>Signature Menu</h2>
+
+  <div class="menu">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500">
+      <h3>Burger</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500">
+      <h3>Pizza</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500">
+      <h3>Fries</h3>
+    </div>
+
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section fade">
+  <h2>What People Say</h2>
+
+  <div class="reviews">
+
+    <div class="review-card">
+      <p>"One of the best burgers I've ever had. Absolutely loved it."</p>
+      <h4>— Rahul</h4>
+    </div>
+
+    <div class="review-card">
+      <p>"The vibe, the food, everything is just perfect."</p>
+      <h4>— Sneha</h4>
+    </div>
+
+    <div class="review-card">
+      <p>"Quick service and amazing taste. Highly recommended."</p>
+      <h4>— Arjun</h4>
+    </div>
+
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="section fade">
+  <h2>Our Story</h2>
+
+  <div class="story">
+
+    <div class="story-card">
+      <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9">
+      <div>
+        <h3>Crafted with Passion</h3>
+        <p>Every burger is made fresh with handpicked ingredients to deliver the best taste experience.</p>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1">
+      <div>
+        <h3>Moments That Matter</h3>
+        <p>Urban Bites is not just food, it's where friends meet and memories are created.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="section fade">
+  <button onclick="window.location.href='orderprem.html'">ORDER NOW</button>
+</div>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919912414450" class="whatsapp">💬</a>
+
+<script>
+
+/* SCROLL REVEAL */
+const fades = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  fades.forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 50){
+      el.classList.add('show');
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>

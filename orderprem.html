@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Order - Urban Bites</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(black,#0a0a0a);
+  color: white;
+}
+
+/* HEADER */
+.header {
+  padding: 20px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+/* ROW */
+.row {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+select, input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #111;
+  color: white;
+}
+
+/* BUTTONS */
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg,#ff4d6d,#ff914d);
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.remove {
+  background: red;
+}
+
+/* BILL */
+.bill {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #111;
+}
+
+.total {
+  font-size: 20px;
+  color: #ff914d;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">🍔 Urban Bites Order</div>
+
+<div class="container">
+
+<div class="card">
+  <h3>Select Your Items</h3>
+  <div id="items"></div>
+  <button onclick="addItem()">➕ Add Item</button>
+</div>
+
+<div class="card">
+  <h3>Your Bill</h3>
+  <div id="bill"></div>
+  <button onclick="generateBill()">Generate Bill</button>
+</div>
+
+<div class="card">
+  <button onclick="sendWhatsApp()">📲 Send Order on WhatsApp</button>
+</div>
+
+</div>
+
+<script>
+
+let menu = {
+  "Burger": [
+    {name:"Classic Burger", price:120},
+    {name:"Cheese Burger ⭐", price:150}
+  ],
+  "Pizza": [
+    {name:"Veg Pizza", price:200},
+    {name:"Farmhouse ⭐", price:250}
+  ],
+  "Fries": [
+    {name:"Regular Fries", price:80},
+    {name:"Peri Peri ⭐", price:100}
+  ]
+};
+
+function addItem(){
+  let container = document.getElementById("items");
+
+  let row = document.createElement("div");
+  row.className = "row";
+
+  let category = document.createElement("select");
+
+  for(let cat in menu){
+    let opt = document.createElement("option");
+    opt.value = cat;
+    opt.text = cat;
+    category.appendChild(opt);
+  }
+
+  let item = document.createElement("select");
+  let qty = document.createElement("input");
+  qty.placeholder = "Qty";
+
+  function loadItems(){
+    item.innerHTML = "";
+    menu[category.value].forEach(i=>{
+      let opt = document.createElement("option");
+      opt.value = i.name;
+      opt.text = i.name + " - ₹" + i.price;
+      item.appendChild(opt);
+    });
+  }
+
+  category.onchange = loadItems;
+  loadItems();
+
+  let removeBtn = document.createElement("button");
+  removeBtn.innerText = "❌";
+  removeBtn.className = "remove";
+  removeBtn.onclick = ()=> row.remove();
+
+  row.appendChild(category);
+  row.appendChild(item);
+  row.appendChild(qty);
+  row.appendChild(removeBtn);
+
+  container.appendChild(row);
+}
+
+function generateBill(){
+  let rows = document.querySelectorAll(".row");
+  let total = 0;
+  let output = "<div class='bill'>";
+
+  rows.forEach(row=>{
+    let cat = row.children[0].value;
+    let item = row.children[1].value;
+    let qty = parseInt(row.children[2].value);
+
+    if(item && qty){
+      let found = menu[cat].find(i=>i.name === item);
+      let cost = found.price * qty;
+      total += cost;
+
+      output += `<p>${item} × ${qty} = ₹${cost}</p>`;
+    }
+  });
+
+  output += `<hr><div class='total'>Total: ₹${total}</div></div>`;
+  document.getElementById("bill").innerHTML = output;
+}
+
+function sendWhatsApp(){
+  let rows = document.querySelectorAll(".row");
+  let total = 0;
+  let msg = "Urban Bites Premium Order:%0A";
+
+  rows.forEach(row=>{
+    let cat = row.children[0].value;
+    let item = row.children[1].value;
+    let qty = parseInt(row.children[2].value);
+
+    if(item && qty){
+      let found = menu[cat].find(i=>i.name === item);
+      let cost = found.price * qty;
+      total += cost;
+
+      msg += item + " x " + qty + " = ₹" + cost + "%0A";
+    }
+  });
+
+  msg += "%0ATotal: ₹" + total;
+
+  window.open("https://wa.me/919912414450?text=" + msg, "_blank");
+}
+
+window.onload = addItem;
+
+</script>
+
+</body>
+</html>
